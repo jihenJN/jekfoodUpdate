@@ -1,0 +1,48 @@
+{
+  "changelogDate": "20230808205357",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "photos",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "origin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "stars",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "favorite",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "cook_time",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "Plate",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "restaurant",
+      "relationshipName": "restaurant",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}
