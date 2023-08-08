@@ -1,0 +1,63 @@
+<section id="menu" class="menu section-bg">
+    <div class="container" data-aos="fade-up">
+       <div class="section-header">
+          <h2>Our Menu</h2>
+          <p>Check Our <span>FOODJEK</span></p>
+       </div>
+<ul>
+    <li *ngFor="let food of foodsDto">
+      <a>
+        <img [src]="food.photos" alt="food">
+        <div class = "content">
+         <div class ="name">
+          {{food.name}}
+         </div>  
+
+         <span class="favorite {{food.favorite?'':'not'}}">
+          <i class="bi bi-suit-heart-fill " ></i>
+         </span>
+         <bar-rating [rate]="food.stars" [max]="5">
+          <ng-template ratingActive>
+            <i class="bi bi-star-fill" style="margin: 2px; color: #df2828"></i>
+          </ng-template>
+          <ng-template ratingInactive>
+            <i class="bi bi-star-fill icon-red" style="margin: 2px; color: grey"></i>
+          </ng-template>
+         </bar-rating>
+
+         <div class="product-item-footer">
+           <!--div class="restaurant">
+            <span >
+              {{food.restaurant}}   
+            </span>
+           </div-->
+           <div class="origins">
+            <span>
+              {{food.origin}}   
+            </span>
+           </div>
+           <div class="cook-time">
+           
+            <span><i class="bi bi-clock"></i></span>
+            {{food.cook_time}}  min
+           </div>           
+         </div>
+          <div class="price">
+            <span>
+                {{food.price}} TND
+            </span>
+
+            <span class="restaurant" >
+              {{food.restaurant}}
+          </span>
+          </div>              
+        
+        </div>
+        <div class="text-center"> 
+          <button routerLink="/reservation" class="btn-book-a-table">ORDER NOW</button>  
+        </div>
+      </a>
+    </li>
+</ul>
+</div>
+</section>

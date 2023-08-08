@@ -1,0 +1,31 @@
+<section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+       <div class="section-header">
+          <h2>Welcome</h2>
+          <p>Welcome To <span>Our Restaurants</span></p>
+       </div>
+       
+      <ul>
+         <li *ngFor="let restaurant of restaurantsDto">
+           
+            <div class="card " style="width: 18rem;">
+              <img [src]="restaurant.photo" alt="">
+               <div class="card-body">
+                 <h5 class="card-title" style="color: firebrick;">
+                 {{restaurant.name}}
+                 </h5>
+                 <p class="card-text"><i class="bi bi-geo-alt-fill"></i> {{restaurant.address}} </p>
+                 <p class="card-text"><i class="bi bi-telephone-fill"></i> {{restaurant.phone}}</p>
+                 <button routerLink="/platelist/{{restaurant.id}}" class="btn-book-a-table "><i class="bi bi-journal-text"></i> View Menu</button>
+                
+                  
+               </div>
+            </div>
+            
+         </li>
+      </ul>
+
+    </div>
+ </section>
+ 
+
