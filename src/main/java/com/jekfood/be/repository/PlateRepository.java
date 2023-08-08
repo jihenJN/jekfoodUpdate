@@ -1,6 +1,8 @@
 package com.jekfood.be.repository;
 
 import com.jekfood.be.domain.Plate;
+import com.jekfood.be.domain.Restaurant;
+import com.jekfood.be.service.dto.PlateDTO;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -22,4 +24,6 @@ public interface PlateRepository extends MongoRepository<Plate, String> {
 
     @Query("{'id': ?0}")
     Optional<Plate> findOneWithEagerRelationships(String id);
+
+    List<Plate> findAllByRestaurant(Restaurant restaurant);
 }

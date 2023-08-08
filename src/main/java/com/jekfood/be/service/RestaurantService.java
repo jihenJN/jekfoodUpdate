@@ -1,8 +1,12 @@
 package com.jekfood.be.service;
 
+import com.jekfood.be.domain.Plate;
 import com.jekfood.be.domain.Restaurant;
+import com.jekfood.be.repository.PlateRepository;
 import com.jekfood.be.repository.RestaurantRepository;
+import com.jekfood.be.service.dto.PlateDTO;
 import com.jekfood.be.service.dto.RestaurantDTO;
+import com.jekfood.be.service.mapper.PlateMapper;
 import com.jekfood.be.service.mapper.RestaurantMapper;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,9 +28,20 @@ public class RestaurantService {
 
     private final RestaurantMapper restaurantMapper;
 
-    public RestaurantService(RestaurantRepository restaurantRepository, RestaurantMapper restaurantMapper) {
+    private final PlateRepository plateRepository;
+
+    private final PlateMapper plateMapper;
+
+    public RestaurantService(
+        RestaurantRepository restaurantRepository,
+        RestaurantMapper restaurantMapper,
+        PlateRepository plateRepository,
+        PlateMapper plateMapper
+    ) {
         this.restaurantRepository = restaurantRepository;
         this.restaurantMapper = restaurantMapper;
+        this.plateRepository = plateRepository;
+        this.plateMapper = plateMapper;
     }
 
     /**
@@ -96,6 +111,8 @@ public class RestaurantService {
         return restaurantRepository.findById(id).map(restaurantMapper::toDto);
     }
 
+    /*******************JN MODIFY DELETE INTO DELETE CASCADE BETWEEN RESTAURANT AND PLATES*******/
+
     /**
      * Delete the restaurant by id.
      *
@@ -103,6 +120,21 @@ public class RestaurantService {
      */
     public void delete(String id) {
         log.debug("Request to delete Restaurant : {}", id);
-        restaurantRepository.deleteById(id);
+
+        // Find the restaurant by ID
+        Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
+
+        if (restaurantOptional.isPresent()) {
+            Restaurant restaurant = restaurantOptional.get();
+
+            // Delete the associated plates
+            List<Plate> plates = plateRepository.findAllByRestaurant(restaurant);
+            for (Plate plate : plates) {
+                plateRepository.deleteById(plate.getId());
+            }
+
+            // Delete the restaurant
+            restaurantRepository.deleteById(id);
+        }
     }
 }
