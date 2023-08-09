@@ -23,7 +23,7 @@ export class FoodService {
   }*/
 
   getplatesbyrestaurant(idrestaurant:String): Observable<Food[]> {
-    return this.http.get<Food[]>(`http://localhost:8080/api/platesbyrestaurant/${idrestaurant}`);
+    return this.http.get<Food[]>(`http://localhost:8080/api/platesByRestaurant/${idrestaurant}`);
   }
 
    

@@ -17,11 +17,7 @@ export class RestaurantService {
     return this.http.get<Restaurant[]>(`${this.url}`);
   }
 
- /* getRestaurantByCode(code: string): Observable<Restaurant> { 
-    return this.http
-    .get<Restaurant>(environment.urlRestaurants + "/" + code);
-
-  }*/
+ 
 
   
   }

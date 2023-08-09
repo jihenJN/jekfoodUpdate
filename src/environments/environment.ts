@@ -8,7 +8,7 @@ export const environment = {
 
   urlRestaurants: 'http://localhost:8080/api/restaurants',
   urlplates:'http://localhost:8080/api/plates',
-  urlplatesbyrestaurant:'http://localhost:8080/api/platesbyrestaurant',
+  urlplatesbyrestaurant:'http://localhost:8080/api/platesByRestaurant',
  
   production: false
 };
