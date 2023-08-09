@@ -1,6 +1,9 @@
 package com.jekfood.be.web.rest;
 
+import com.jekfood.be.domain.Plate;
+import com.jekfood.be.domain.Restaurant;
 import com.jekfood.be.repository.PlateRepository;
+import com.jekfood.be.repository.RestaurantRepository;
 import com.jekfood.be.service.PlateService;
 import com.jekfood.be.service.dto.PlateDTO;
 import com.jekfood.be.web.rest.errors.BadRequestAlertException;
@@ -42,10 +45,12 @@ public class PlateResource {
     private final PlateService plateService;
 
     private final PlateRepository plateRepository;
+    private final RestaurantRepository restaurantRepository;
 
-    public PlateResource(PlateService plateService, PlateRepository plateRepository) {
+    public PlateResource(PlateService plateService, PlateRepository plateRepository, RestaurantRepository restaurantRepository) {
         this.plateService = plateService;
         this.plateRepository = plateRepository;
+        this.restaurantRepository = restaurantRepository;
     }
 
     /**
@@ -158,6 +163,35 @@ public class PlateResource {
             page = plateService.findAll(pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /platesByRestaurant} : get all the plates by Restaurant.
+     *
+     * @param pageable the pagination information.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of plates in body.
+     */
+    @GetMapping("/platesByRestaurant/{restaurantId}")
+    public ResponseEntity<List<Plate>> getAllPlatesByRestaurant(
+        @PathVariable String restaurantId,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get a page of Plates by Restaurant");
+
+        // Retrieve the Restaurant object using the provided restaurantId
+        Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
+
+        if (!restaurant.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Call the service method with the retrieved Restaurant object
+        Page<Plate> page = plateService.findAllByRestaurant(restaurant.get(), pageable);
+
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

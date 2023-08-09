@@ -26,4 +26,6 @@ public interface PlateRepository extends MongoRepository<Plate, String> {
     Optional<Plate> findOneWithEagerRelationships(String id);
 
     List<Plate> findAllByRestaurant(Restaurant restaurant);
+
+    Page<Plate> findAllByRestaurant(Restaurant restaurant, Pageable pageable);
 }

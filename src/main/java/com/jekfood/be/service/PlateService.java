@@ -1,6 +1,7 @@
 package com.jekfood.be.service;
 
 import com.jekfood.be.domain.Plate;
+import com.jekfood.be.domain.Restaurant;
 import com.jekfood.be.repository.PlateRepository;
 import com.jekfood.be.service.dto.PlateDTO;
 import com.jekfood.be.service.mapper.PlateMapper;
@@ -83,6 +84,18 @@ public class PlateService {
     public Page<PlateDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Plates");
         return plateRepository.findAll(pageable).map(plateMapper::toDto);
+    }
+
+    /**
+     * Get all the plates by restaurant.
+     * @param pageable the pagination information.
+     * @return the list of entities by restaurant.
+     */
+    public Page<Plate> findAllByRestaurant(Restaurant restaurant, Pageable pageable) {
+        log.debug("Request to get all Plates");
+        log.debug("findAllByRestaurant-----------------" + restaurant);
+        log.debug("saleRepository.findAllByInvoice-----------------" + plateRepository.findAllByRestaurant(restaurant, pageable));
+        return plateRepository.findAllByRestaurant(restaurant, pageable);
     }
 
     /**
