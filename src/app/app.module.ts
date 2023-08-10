@@ -39,6 +39,7 @@ import { StepsModule } from 'primeng/steps';
 import { TagModule } from 'primeng/tag';
 import { AnimateModule } from 'primeng/animate';
 import { CardModule } from 'primeng/card';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,7 @@ import { CardModule } from 'primeng/card';
     TagModule,
     AnimateModule,
     CardModule,
-    
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
