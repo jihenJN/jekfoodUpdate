@@ -9,6 +9,7 @@ import { OrderComponent } from './order/order.component';
 import { PlateListComponent } from './plate-list/plate-list.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
+import { PlatesViewComponent } from './plates-view/plates-view.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path:'order',component:OrderComponent},
   {path:'reservation',component:ReservationComponent},
   {path:'platelist/:idrestaurant',component:PlateListComponent},
+  {path:'plates',component:PlatesViewComponent},
 
 ];
 
