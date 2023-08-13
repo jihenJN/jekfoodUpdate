@@ -96,4 +96,9 @@ export class PlateUpdateComponent implements OnInit {
       )
       .subscribe((restaurants: IRestaurant[]) => (this.restaurantsSharedCollection = restaurants));
   }
+
+  protected onImageUploaded(url: string): void {
+    // Set the image URL in the 'photo' form control
+    this.editForm.get('photos')?.setValue(url);
+  }
 }

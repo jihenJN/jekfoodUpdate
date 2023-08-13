@@ -31,6 +31,7 @@
         <div class="row mb-3">
           <label class="form-label" for="field_photos">Photos</label>
           <input type="text" class="form-control" name="photos" id="field_photos" data-cy="photos" formControlName="photos" />
+          <jhi-upload-images (imageUploaded)="onImageUploaded($event)"></jhi-upload-images>
         </div>
 
         <div class="row mb-3">
