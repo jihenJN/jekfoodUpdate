@@ -5,9 +5,16 @@ import { RestaurantDetailComponent } from './detail/restaurant-detail.component'
 import { RestaurantUpdateComponent } from './update/restaurant-update.component';
 import { RestaurantDeleteDialogComponent } from './delete/restaurant-delete-dialog.component';
 import { RestaurantRoutingModule } from './route/restaurant-routing.module';
+import { UploadImagesComponent } from './upload-images/upload-images.component';
 
 @NgModule({
   imports: [SharedModule, RestaurantRoutingModule],
-  declarations: [RestaurantComponent, RestaurantDetailComponent, RestaurantUpdateComponent, RestaurantDeleteDialogComponent],
+  declarations: [
+    RestaurantComponent,
+    RestaurantDetailComponent,
+    RestaurantUpdateComponent,
+    RestaurantDeleteDialogComponent,
+    UploadImagesComponent,
+  ],
 })
 export class RestaurantModule {}

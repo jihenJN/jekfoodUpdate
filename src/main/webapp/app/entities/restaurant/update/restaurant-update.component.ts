@@ -70,4 +70,9 @@ export class RestaurantUpdateComponent implements OnInit {
     this.restaurant = restaurant;
     this.restaurantFormService.resetForm(this.editForm, restaurant);
   }
+
+  protected onImageUploaded(url: string): void {
+    // Set the image URL in the 'photo' form control
+    this.editForm.get('photo')?.setValue(url);
+  }
 }
