@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../shared/models/product';
 import { SelectItem } from 'primeng/api';
+import { Food, foodDto } from '../shared/models/Food';
+import { FoodService } from '../services/food/food.service';
 
 @Component({
   selector: 'app-plates-view',
@@ -18,13 +20,27 @@ export class PlatesViewComponent implements OnInit {
   sortField!: string;
 
 
-  products!: Product[];
+  foods : Food[] =[]
+  foodsDto: foodDto[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(private foodService: FoodService) {}
 
   ngOnInit() {
-      this.productService.getProducts().then((data) => (this.products = data));
+    
+    this.foodService.getplates().subscribe((data: Food[]) => {
+      console.log(data);
       
+      this.foods = data;
+      
+      console.log(this.foods);
+
+      this.foodsDto = this.inintFoodDto(this.foods );
+      
+      console.log(this.foodsDto);
+    
+    });
+
+         
       this.sortOptions = [
         { label: 'Price High to Low', value: '!price' },
         { label: 'Price Low to High', value: 'price' }
@@ -44,21 +60,53 @@ export class PlatesViewComponent implements OnInit {
 }
 
 
-  getSeverity(product: Product) {
-      switch (product.inventoryStatus) {
-          case 'INSTOCK':
+  getSeverity(food: Food) {
+      switch (food.favorite) {
+          case true:
               return 'success';
 
-          case 'LOWSTOCK':
+          case false:
               return 'warning';
 
-          case 'OUTOFSTOCK':
-              return 'danger';
+          
 
               default:
                 return '';
       }
   };
+
+  inintFoodDto(foods: Food[]):foodDto[] {
+    
+    let tempFoodDto: foodDto[] = [];
+   
+
+    foods.forEach((food) => {
+  
+      const foDto: foodDto = {
+        name: food.name,
+        price: food.price,
+        photos: food.photos,
+        restaurant: this.getRestaurant(food.restaurant?.name),
+        idrestaurant:food.idrestaurant,
+        favorite:food.favorite,
+        stars: food.stars,
+        cook_time:food.cook_time,
+        origin: food.origin,
+      }; 
+      tempFoodDto.push(foDto);
+     
+    });
+  
+    
+    return  tempFoodDto;
+   
+  }
+
+    
+  private getRestaurant(data:any): any {
+    console.log("data in getRestaurant----------" + data);
+    return data;
+  }
 
   
 }
