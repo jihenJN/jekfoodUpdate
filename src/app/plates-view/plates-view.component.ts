@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/product.service';
-import { Product } from '../shared/models/product';
 import { SelectItem } from 'primeng/api';
 import { Food, foodDto } from '../shared/models/Food';
 import { FoodService } from '../services/food/food.service';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-plates-view',
@@ -23,22 +22,34 @@ export class PlatesViewComponent implements OnInit {
   foods : Food[] =[]
   foodsDto: foodDto[] = [];
 
-  constructor(private foodService: FoodService) {}
+  constructor(private foodService: FoodService,private route: ActivatedRoute, private router:Router) {}
 
   ngOnInit() {
     
-    this.foodService.getplates().subscribe((data: Food[]) => {
-      console.log(data);
-      
-      this.foods = data;
-      
-      console.log(this.foods);
+    this.route.paramMap.subscribe((param : ParamMap) => {
 
-      this.foodsDto = this.inintFoodDto(this.foods );
+      var idrestaurant = String(param.get('idrestaurant'));
+  
+      console.log(idrestaurant);
+  
+  
+     
+      this.foodService.getplatesbyrestaurant(idrestaurant).subscribe((data) => {
+        
+        this.foods = data;
+        console.log(this.foods)
+  
+        this.foodsDto = this.inintFoodDto(this.foods );
+        
+        console.log(this.foodsDto)
+  
+      });
       
-      console.log(this.foodsDto);
-    
+     
+  
+  
     });
+  
 
          
       this.sortOptions = [
@@ -108,5 +119,10 @@ export class PlatesViewComponent implements OnInit {
     return data;
   }
 
-  
+  getByIdRestaurant(idrestaurant:string) {
+    this.foodService.getplatesbyrestaurant(idrestaurant).subscribe((data) => {
+      this.foods = data;
+      console.log(this.foods)
+    });
+  }
 }

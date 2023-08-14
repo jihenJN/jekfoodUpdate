@@ -1,9 +1,10 @@
 <section id="about" class="about">
     <div class="container" data-aos="fade-up">
-       <div class="section-header">
-          <h2></h2>
-          <p>Welcome To <span>Our Restaurants</span></p>
-       </div>
+        <div class="section-header" *ngFor="let food of foodsDto ;let i = index">
+            <h2>   </h2>
+            <p  *ngIf="i==0">Welcome to<span> {{ food.restaurant}}  Menu</span></p>
+         </div>
+  
        
     
 <div class="card">

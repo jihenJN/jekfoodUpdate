@@ -20,8 +20,8 @@ const routes: Routes = [
   {path:'contact',component:ContactComponent},
   {path:'order',component:OrderComponent},
   {path:'reservation',component:ReservationComponent},
-  {path:'platelist/:idrestaurant',component:PlateListComponent},
-  {path:'plates',component:PlatesViewComponent},
+  {path:'platelist/:idrestaurant',component:PlatesViewComponent},
+
 
 ];
 
